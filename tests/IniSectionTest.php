@@ -1,6 +1,6 @@
 <?php
 
-class IniSectionTest extends PHPUnit_Framework_TestCase
+class IniSectionTest extends \PHPUnit\Framework\TestCase
 {
 
     public function test_setContents_withProperParameters_returnsSection()
@@ -11,11 +11,9 @@ class IniSectionTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($section instanceof \Retrinko\Ini\IniSection);
     }
 
-    /**
-     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
-     */
     public function test_setContents_withBadParameters_thrownsInvalidDataException()
     {
+        $this->expectException(\Retrinko\Ini\Exceptions\InvalidDataException::class);
         $contents = 'bad contents';
         $section = new \Retrinko\Ini\IniSection('section');
         $section->setContents($contents);
@@ -28,11 +26,9 @@ class IniSectionTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($section instanceof \Retrinko\Ini\IniSection);
     }
 
-    /**
-     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
-     */
     public function test_set_withInvalidItemName_thrownsInvalidDataException()
     {
+        $this->expectException(\Retrinko\Ini\Exceptions\InvalidDataException::class);
         $invalidItemName = 'hello!';
         $section = new \Retrinko\Ini\IniSection('test');
         $section->set($invalidItemName, 'world');

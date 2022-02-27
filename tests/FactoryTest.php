@@ -1,6 +1,6 @@
 <?php
 
-class FactoryTest extends PHPUnit_Framework_TestCase
+class FactoryTest extends \PHPUnit\Framework\TestCase
 {
 
     public function test_fromArray_withEmptyArray_returnsEmptyIniFile()
@@ -12,11 +12,9 @@ class FactoryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([], $iniFile->toArray());
     }
 
-    /**
-     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
-     */
     public function test_fromArray_withInvalidArray_thrownsException()
     {
+        $this->expectException(\Retrinko\Ini\Exceptions\InvalidDataException::class);
         $array = ['a', 'b', 'c'];
         \Retrinko\Ini\IniFile\Factory::fromArray($array);
     }
@@ -30,11 +28,9 @@ class FactoryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([], $iniFile->toArray());
     }
 
-    /**
-     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
-     */
     public function test_fromIniSections_withInvalidArray_thrownsException()
     {
+        $this->expectException(\Retrinko\Ini\Exceptions\InvalidDataException::class);
         $array = ['a', 'b', 'c'];
         \Retrinko\Ini\IniFile\Factory::fromIniSections($array);
     }

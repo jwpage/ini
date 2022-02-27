@@ -2,13 +2,11 @@
 
 
 
-class IniFileTest extends PHPUnit_Framework_TestCase
+class IniFileTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @expectedException \Retrinko\Ini\Exceptions\FileException
-     */
     public function test_construct_withNotExistingFile_throwsException()
     {
+        $this->expectException(\Retrinko\Ini\Exceptions\FileException::class);
         $file = 'no-file.ini';
         new \Retrinko\Ini\IniFile($file);
     }
@@ -65,11 +63,9 @@ class IniFileTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('default', $ini->get('B', 'key2', 'default'));
     }
 
-    /**
-     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
-     */
     public function test_get_withValidFileAndNotPresetSection_throwsException()
     {
+        $this->expectException(\Retrinko\Ini\Exceptions\InvalidDataException::class);
         $file = __DIR__.'/data/simple.ini';
         $ini = new \Retrinko\Ini\IniFile($file);
         $ini->get('NO-EXISTING-SECTION', 'key2', 'default');

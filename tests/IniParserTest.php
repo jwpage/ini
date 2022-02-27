@@ -2,7 +2,7 @@
 
 
 
-class IniParserTest extends PHPUnit_Framework_TestCase
+class IniParserTest extends \PHPUnit\Framework\TestCase
 {
 
     public function test_parseIniString_withValidString_returnsNotEmptyArray()
@@ -22,21 +22,17 @@ class IniParserTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($parsedContents) && empty($parsedContents));
     }
 
-    /**
-     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
-     */
     public function test_parseIniString_withInvalidIniString_throwsException()
     {
+        $this->expectException(\Retrinko\Ini\Exceptions\InvalidDataException::class);
         $string = 'No ini string!!';
         $parser = \Retrinko\Ini\IniParser::i();
         $parser->parseIniString($string);
     }
 
-    /**
-     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
-     */
     public function test_parseArray_withInvalidArrayFormat_throwsException()
     {
+        $this->expectException(\Retrinko\Ini\Exceptions\InvalidDataException::class);
         $array = ['a', 'b', 'c'];
         $parser = \Retrinko\Ini\IniParser::i();
         $parser->parseArray($array);
@@ -156,4 +152,15 @@ class IniParserTest extends PHPUnit_Framework_TestCase
 
     }
 
+    public function test_cannot_clone()
+    {
+        $this->expectException(\BadMethodCallException::class);
+        clone(\Retrinko\Ini\IniParser::i());
+    }
+    
+    public function test_cannot_unbserialize()
+    {
+        $this->expectException(\BadMethodCallException::class);
+        unserialize(serialize(\Retrinko\Ini\IniParser::i()));
+    }
 }

@@ -1,7 +1,7 @@
 <?php
 
 
-class IniFileLocatorTest extends PHPUnit_Framework_TestCase
+class IniFileLocatorTest extends \PHPUnit\Framework\TestCase
 {
 
     public function test_i_returnsIniFileLocatorInstance()
@@ -24,13 +24,24 @@ class IniFileLocatorTest extends PHPUnit_Framework_TestCase
 
     /**
      * @depends test_i_returnsIniFileLocatorInstance
-     * @expectedException \Retrinko\Ini\Exceptions\FileException
      * @throws \Retrinko\Ini\Exceptions\FileException
      */
     public function test_locate_unexistingFile_throwsException()
     {
+        $this->expectException(\Retrinko\Ini\Exceptions\FileException::class);
         $file = __DIR__.'/data/nofile.ini';
         \Retrinko\Ini\IniFileLocator::i()->i()->locate($file);
     }
 
+    public function test_cannot_clone()
+    {
+        $this->expectException(\BadMethodCallException::class);
+        clone(\Retrinko\Ini\IniParser::i());
+    }
+    
+    public function test_cannot_unbserialize()
+    {
+        $this->expectException(\BadMethodCallException::class);
+        unserialize(serialize(\Retrinko\Ini\IniParser::i()));
+    }
 }
