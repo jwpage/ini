@@ -4,6 +4,7 @@
 namespace Retrinko\Ini;
 
 
+use BadMethodCallException;
 use Retrinko\Ini\Exceptions\FileException;
 
 class IniFileLocator
@@ -49,13 +50,15 @@ class IniFileLocator
         return self::$instance;
     }
 
-    private function __clone()
+    public function __clone()
     {
+        throw new BadMethodCallException('Not supported.');
     }
 
     /** @noinspection PhpUnusedPrivateMethodInspection */
-    private function __wakeup()
+    public function __wakeup()
     {
+        throw new BadMethodCallException('Not supported.');
     }
 
     /**

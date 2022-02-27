@@ -3,6 +3,7 @@
 
 namespace Retrinko\Ini;
 
+use BadMethodCallException;
 use Retrinko\Ini\Exceptions\InvalidDataException;
 
 class IniParser
@@ -51,13 +52,14 @@ class IniParser
         return static::$instance;
     }
 
-    private function __clone()
+    public function __clone()
     {
+        throw new BadMethodCallException('Not supported.');
     }
 
-    /** @noinspection PhpUnusedPrivateMethodInspection */
-    private function __wakeup()
+    public function __wakeup()
     {
+        throw new BadMethodCallException('Not supported.');
     }
 
     /**
